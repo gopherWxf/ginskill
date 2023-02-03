@@ -1,7 +1,7 @@
 package UserModel
 
 type UserModelImpl struct {
-	UserId   int    `json:"id"`
+	UserId   int    `json:"id"  form:"id"`
 	UserName string `json:"name" form:"name" binding:"required,min=4"`
 }
 
