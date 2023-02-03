@@ -5,6 +5,10 @@ type UserModelImpl struct {
 	UserName string `json:"name" form:"name" binding:"required,min=4"`
 }
 
+func (*UserModelImpl) TableName() string {
+	return "users"
+}
+
 func New(attrs ...UserModelAttrFunc) *UserModelImpl {
 	u := &UserModelImpl{}
 	UserModelAttrFuncs(attrs).Apply(u)
