@@ -10,7 +10,7 @@ func main() {
 	r := gin.New()
 	r.Use(common.ErrorHandler())
 	r.POST("/users", handlers.UserList)
-	r.POST("/users:id", handlers.UserList)
+	r.POST("/users:id", handlers.UserDetail)
 
 	r.Run(":80")
 }
