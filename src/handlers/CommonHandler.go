@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"sync"
 )
@@ -25,15 +26,27 @@ func init() {
 	}
 }
 
-type ResultFunc func(message string, code string, result interface{})
+type ResultFunc func(message string, code string, result interface{}) func(output Output)
+type Output func(c *gin.Context, v interface{})
 
-func OK(c *gin.Context) ResultFunc {
-	return func(message string, code string, result interface{}) {
+func R(c *gin.Context) ResultFunc {
+	return func(message string, code string, result interface{}) func(output Output) {
 		r := ResultPool.Get().(*JSONResult)
 		defer ResultPool.Put(r)
 		r.Message = message
 		r.Code = code
 		r.Result = result
-		c.JSON(200, r)
+		return func(output Output) {
+			output(c, r)
+		}
 	}
+}
+func OK(c *gin.Context, v interface{}) {
+	c.JSON(200, v)
+}
+func Error(c *gin.Context, v interface{}) {
+	c.JSON(400, v)
+}
+func Ok2String(c *gin.Context, v interface{}) {
+	c.String(200, fmt.Sprintf("%v", v))
 }
