@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"ginskill/src/data/Getter"
+	"ginskill/src/models/UserModel"
 	"ginskill/src/result"
 	"github.com/gin-gonic/gin"
 )
@@ -16,4 +17,9 @@ func UserDetail(c *gin.Context) {
 	}{}
 	result.Result(c.ShouldBindUri(id)).UnWrap()
 	R(c)("userdetail", "0001", Getter.UserGetter.GetUserByID(id.Id).UnWrap())(OK)
+}
+func UserSave(c *gin.Context) {
+	u := UserModel.New()
+	result.Result(c.ShouldBindJSON(u)).UnWrap()
+	R(c)("user save", "0001", "true")(OK)
 }
