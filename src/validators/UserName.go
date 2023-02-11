@@ -11,6 +11,7 @@ func init() {
 type UserNameRole string
 
 func (this UserNameRole) toFunc() validator.Func {
+	validatorError["UserName"] = "用户名必须在4-8位之间"
 	return func(fl validator.FieldLevel) bool {
 		v, ok := fl.Field().Interface().(string)
 		if ok {

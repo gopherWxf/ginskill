@@ -1,6 +1,9 @@
 package result
 
-import "errors"
+import (
+	"errors"
+	"ginskill/src/validators"
+)
 
 type ErrorResult struct {
 	data interface{}
@@ -9,6 +12,7 @@ type ErrorResult struct {
 
 func (this *ErrorResult) UnWrap() interface{} {
 	if this.err != nil {
+		validators.CheckErrors(this.err)
 		panic(this.err.Error())
 	}
 	return this.data
