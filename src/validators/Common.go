@@ -15,3 +15,10 @@ func init() {
 		log.Fatal("err Validate")
 	}
 }
+
+func registerValidation(tag string, fn validator.Func) {
+	err := myvalid.RegisterValidation(tag, fn)
+	if err != nil {
+		log.Fatal("err registerValidation")
+	}
+}

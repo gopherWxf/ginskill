@@ -2,7 +2,7 @@ package UserModel
 
 type UserModelImpl struct {
 	UserId   int    `json:"id"  form:"id"`
-	UserName string `json:"name" form:"name" binding:"required,UserName"`
+	UserName string `json:"name" form:"name" binding:"UserName"`
 }
 
 func (*UserModelImpl) TableName() string {
