@@ -1,6 +1,10 @@
 package mappers
 
-import "github.com/Masterminds/squirrel"
+import (
+	"ginskill/src/models/UserModel"
+	"github.com/Masterminds/squirrel"
+	"time"
+)
 
 type UserMapper struct {
 }
@@ -24,4 +28,11 @@ func (*UserMapper) GetUserDetail(id int) *SqlMapper {
 		Limit(10).
 		ToSql(),
 	)
+}
+func (*UserMapper) AddNewUser(user *UserModel.UserModelImpl) *SqlMapper {
+	return Mapper(squirrel.
+		Insert(user.TableName()).
+		Columns("user_name", "user_id", "user_addtime").
+		Values(user.UserName, user.UserId, time.Now()).
+		ToSql())
 }

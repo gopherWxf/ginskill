@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"ginskill/src/data/Getter"
+	"ginskill/src/data/Setter"
 	"ginskill/src/models/UserModel"
 	"ginskill/src/result"
 	"github.com/gin-gonic/gin"
@@ -21,5 +22,5 @@ func UserDetail(c *gin.Context) {
 func UserSave(c *gin.Context) {
 	u := UserModel.New()
 	result.Result(c.ShouldBindJSON(u)).UnWrap()
-	R(c)("user save", "0001", "true")(OK)
+	R(c)("user save", "0001", Setter.UserSetter.SaveUser(u).UnWrap())(OK)
 }
